@@ -6,7 +6,7 @@
     :target: https://pypi.org/project/colorama/
     :alt: Supported Python versions
 
-.. contents:: Оглавление
+.. contents:: Table of contents
    :depth: 3
 
 koinput
