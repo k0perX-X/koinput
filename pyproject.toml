@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "koinput"
-version = "0.2.0.2"
-description = "Maximum simplification of Input / Output for text programs."
+version = "0.2.0.3"
+description = "Maximal simplification of Input / Output for text programs."
 authors = ["Николай Перминов <kolya-perminov@ya.ru>"]
 repository = "https://github.com/k0perX-X/koinput"
 readme = "README.rst"

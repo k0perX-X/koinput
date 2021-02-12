@@ -12,7 +12,7 @@
 koinput
 =======
 
-Maximum simplification of Input / Output for text programs.
+Maximal simplification of Input / Output for text programs.
 
 `PyPI for releases <https://pypi.org/project/koinput/>`_ |
 `Github for source <https://github.com/k0perX-X/koinput>`_
