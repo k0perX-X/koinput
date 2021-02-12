@@ -1,8 +1,10 @@
 [tool.poetry]
 name = "koinput"
-version = "0.2.0"
+version = "0.2.0.1"
 description = "Maximum simplification of Input / Output for text programs."
 authors = ["Николай Перминов <kolya-perminov@ya.ru>"]
+repository = "https://github.com/k0perX-X/koinput"
+readme = "README.rst"
 
 [tool.poetry.dependencies]
 python = "^3.6"
