@@ -7,9 +7,11 @@ __copyright__ = 'Copyright 2021-present k0per'
 
 from koinput.menu import Menu
 from koinput.inputs import int_input, float_input
+from koinput.progress_bar import ProgressBar
 
 __all__ = [
     'int_input',
     'float_input',
-    'Menu'
+    'Menu',
+    'ProgressBar'
 ]

@@ -9,7 +9,7 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
               input_is_greater_than_less_error="The number is greater than acceptable.\n",
               input_is_less_than_greater_error="The number is less than acceptable.\n",
               input_is_less_error_style=None, input_is_greater_error_style=None,
-              strictly_greater=True, strictly_less=True):
+              strictly_greater=True, strictly_less=True) -> int:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')
@@ -76,7 +76,7 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
                 input_is_greater_than_less_error="The number is greater than acceptable.\n",
                 input_is_less_than_greater_error="The number is less than acceptable.\n",
                 input_is_less_error_style=None, input_is_greater_error_style=None,
-                strictly_greater=True, strictly_less=True):
+                strictly_greater=True, strictly_less=True) -> float:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')
