@@ -133,9 +133,9 @@ Use the show_menu command to display the menu.
 .. code-block:: python
 
 	menu.show_menu(title=None, title_style=None, number_of_leading_spaces_title=2, console_style=Fore.RESET,
-                   order_of_items=None, number_of_leading_spaces=4, separator=' - ', items_style=None,
-                   input_suggestion='Select a menu item: ', enable_menu_item_exit=True, menu_item_exit='Exit',
-                   exit_offer='Press Enter to exit...'):
+		       order_of_items=None, number_of_leading_spaces=4, separator=' - ', items_style=None,
+		       input_suggestion='Select a menu item: ', enable_menu_item_exit=True, menu_item_exit='Exit',
+		       exit_offer='Press Enter to exit...'):
 
 ``title=None``
 	Menu title.
