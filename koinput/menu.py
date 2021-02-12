@@ -66,7 +66,6 @@ class Menu:
         # order_of_items type check
         order_of_items_is_int_tuple = True
         if order_of_items is not None:
-            nonlocal order_of_items_is_int_tuple
             for item in order_of_items:
                 if type(item) != int:
                     order_of_items_is_int_tuple = False
