@@ -96,8 +96,9 @@ class Menu:
             number = 1
             if order_of_items is None:
                 for name in list(self.items.keys()):
-                    sys.stdout.write(items_style + '\r')
-                    sys.stdout.write(' ' * len(items_style) + '\r')
+                    if items_style is not None:
+                        sys.stdout.write(items_style + '\r')
+                        sys.stdout.write(' ' * len(items_style) + '\r')
                     sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{name}')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
@@ -111,8 +112,9 @@ class Menu:
                 if enable_menu_item_exit:
                     order_of_items = (*order_of_items, len(self.items.keys()) - 1)
                 for i in order_of_items:
-                    sys.stdout.write(items_style + '\r')
-                    sys.stdout.write(' ' * len(items_style) + '\r')
+                    if items_style is not None:
+                        sys.stdout.write(items_style + '\r')
+                        sys.stdout.write(' ' * len(items_style) + '\r')
                     sys.stdout.write(
                         ' ' * number_of_leading_spaces + f'{number}{separator}{list(self.items.keys())[i]}')
                     number += 1
@@ -127,10 +129,10 @@ class Menu:
                 if enable_menu_item_exit:
                     order_of_items = (*order_of_items, menu_item_exit)
                 for i in order_of_items:
-                    sys.stdout.write(items_style + '\r')
-                    sys.stdout.write(' ' * len(items_style) + '\r')
-                    sys.stdout.write(
-                        ' ' * number_of_leading_spaces + f'{number}{separator}{i}')
+                    if items_style is not None:
+                        sys.stdout.write(items_style + '\r')
+                        sys.stdout.write(' ' * len(items_style) + '\r')
+                    sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{i}')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
                 if x == number - 1:
