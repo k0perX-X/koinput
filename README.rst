@@ -1,9 +1,9 @@
 .. image:: https://img.shields.io/pypi/v/koinput.svg
-    :target: https://pypi.org/project/colorama/
+    :target: https://pypi.org/project/koinput/
     :alt: Latest Version
 
 .. image:: https://img.shields.io/pypi/pyversions/koinput.svg
-    :target: https://pypi.org/project/colorama/
+    :target: https://pypi.org/project/koinput/
     :alt: Supported Python versions
 
 .. contents:: Table of contents
