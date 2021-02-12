@@ -34,24 +34,22 @@ class Menu:
 
         return decorator
 
-    def show_menu(self, title=None, title_colour=None, number_of_leading_spaces_title=2, console_colour=Fore.RESET,
-                  order_of_items=None, number_of_leading_spaces=4, separator='-',
-                  input_suggestion='Выберите пункт меню: ', enable_menu_item_exit=True, menu_item_exit='Выход',
-                  exit_offer='Нажмите Enter для выхода...'):
+    def show_menu(self, title=None, title_style=None, number_of_leading_spaces_title=2, console_style=Fore.RESET,
+                  order_of_items=None, number_of_leading_spaces=4, separator=' - ', items_style=None,
+                  input_suggestion='Select a menu item: ', enable_menu_item_exit=True, menu_item_exit='Exit',
+                  exit_offer='Press Enter to exit...'):
 
         # Type check
         if type(title) != str and title is not None:
             raise TypeError('title must be str')
-        if type(title_colour) != str and title_colour is not None:
+        if type(title_style) != str and title_style is not None:
             raise TypeError('title_colour must be str')
         if type(number_of_leading_spaces) != int:
             raise TypeError('number_of_leading_spaces must be int')
         if type(number_of_leading_spaces_title) != int:
             raise TypeError('number_of_leading_spaces_title must be int')
-        if type(console_colour) != str:
+        if type(console_style) != str:
             raise TypeError('console_colour must be str')
-        if type(order_of_items) != tuple and order_of_items is not None:
-            raise TypeError('order_of_items must be tuple')
         if type(separator) != str:
             raise TypeError('separator must be str')
         if type(input_suggestion) != str:
@@ -62,6 +60,27 @@ class Menu:
             raise TypeError('menu_item_exit must be str')
         if type(exit_offer) != str:
             raise TypeError('exit_offer must be str')
+        if type(order_of_items) != tuple and order_of_items is not None:
+            raise TypeError('order_of_items must be a tuple of int or str')
+
+        # order_of_items type check
+        order_of_items_is_int_tuple = True
+        if order_of_items is not None:
+            nonlocal order_of_items_is_int_tuple
+            for item in order_of_items:
+                if type(item) != int:
+                    order_of_items_is_int_tuple = False
+                    for itemstr in order_of_items:
+                        if type(itemstr) != str:
+                            raise TypeError('order_of_items must be a tuple of int or str')
+                        if itemstr not in self.items:
+                            raise IndexError(
+                                'order_of_items consisting of str must contain only the names of menu items')
+                    break
+                if item < 0 or item >= len(self.items):
+                    raise IndexError(
+                        'order_of_items consisting of int must contain only '
+                        'ordinal numbers of menu items starting from 0')
 
         if enable_menu_item_exit:
             self.add_to_menu(menu_item_exit, self.menu_exit(exit_offer))
@@ -69,34 +88,57 @@ class Menu:
         while True:
             # Title
             if title is not None:
-                if title_colour is not None:
-                    sys.stdout.write(title_colour)
-                    sys.stdout.write('     \r')
-                sys.stdout.write(' ' * number_of_leading_spaces_title + title + console_colour + '\n')
+                if title_style is not None:
+                    sys.stdout.write(title_style + '\r')
+                    sys.stdout.write(' ' * len(title_style) + '\r')
+                sys.stdout.write(' ' * number_of_leading_spaces_title + title + console_style + '\n')
 
             # Menu
             number = 1
             if order_of_items is None:
                 for name in list(self.items.keys()):
-                    print(' ' * number_of_leading_spaces + f'{number} {separator} {name}')
+                    sys.stdout.write(items_style + '\r')
+                    sys.stdout.write(' ' * len(items_style) + '\r')
+                    sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{name}')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
                 if x == number - 1:
                     enable_menu_item_exit = False
                 item = self.items[list(self.items.keys())[x - 1]]
-                item[0](*item[1])
+                if item[0] is not None:
+                    item[0](*item[1])
 
-            else:
+            elif order_of_items_is_int_tuple:
                 if enable_menu_item_exit:
                     order_of_items = (*order_of_items, len(self.items.keys()) - 1)
                 for i in order_of_items:
-                    print(' ' * number_of_leading_spaces + f'{number} {separator} {list(self.items.keys())[i]}')
+                    sys.stdout.write(items_style + '\r')
+                    sys.stdout.write(' ' * len(items_style) + '\r')
+                    sys.stdout.write(
+                        ' ' * number_of_leading_spaces + f'{number}{separator}{list(self.items.keys())[i]}')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
                 if x == number - 1:
                     enable_menu_item_exit = False
                 item = self.items[list(self.items.keys())[order_of_items[x - 1]]]
-                item[0](*item[1])
+                if item[0] is not None:
+                    item[0](*item[1])
+
+            else:
+                if enable_menu_item_exit:
+                    order_of_items = (*order_of_items, menu_item_exit)
+                for i in order_of_items:
+                    sys.stdout.write(items_style + '\r')
+                    sys.stdout.write(' ' * len(items_style) + '\r')
+                    sys.stdout.write(
+                        ' ' * number_of_leading_spaces + f'{number}{separator}{i}')
+                    number += 1
+                x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
+                if x == number - 1:
+                    enable_menu_item_exit = False
+                item = self.items[order_of_items[x - 1]]
+                if item[0] is not None:
+                    item[0](*item[1])
 
             if not enable_menu_item_exit:
                 break
