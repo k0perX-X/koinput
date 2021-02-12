@@ -45,11 +45,11 @@ Explanation of input parameters
 .. code-block:: python
 
 	def int_input(input_suggestion="", greater=float('-inf'), less=float('inf'), console_style=colorama.Fore.RESET,
-		          error_message='Invalid number format.\n', error_message_style=colorama.Fore.RED,
-	    	      input_is_greater_than_less_error="The number is greater than acceptable.\n",
-			      input_is_less_than_greater_error="The number is less than acceptable.\n",
-			      input_is_less_error_style=None, input_is_greater_error_style=None,
-			      strictly_greater=True, strictly_less=True):
+		      error_message='Invalid number format.\n', error_message_style=colorama.Fore.RED,
+		      input_is_greater_than_less_error="The number is greater than acceptable.\n",
+		      input_is_less_than_greater_error="The number is less than acceptable.\n",
+		      input_is_less_error_style=None, input_is_greater_error_style=None,
+		      strictly_greater=True, strictly_less=True):
 
 
 ``input_suggestion=""``
@@ -217,7 +217,7 @@ Usage example
 			return 0.5 * base * height
 
 		print(area_triangle(float_input(input_suggestion='Введите основание треугольника: '),
-							float_input(input_suggestion='Введите высоту треугольника: ')))
+				    float_input(input_suggestion='Введите высоту треугольника: ')))
 
 
 	@menu.add_to_menu_dec('Площадь круга')
@@ -234,9 +234,9 @@ Usage example
 			return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 		print(distance(float_input(input_suggestion='Введите X первой точки: '),
-					   float_input(input_suggestion='Введите Y первой точки: '),
-					   float_input(input_suggestion='Введите X второй точки: '),
-					   float_input(input_suggestion='Введите Y второй точки: ')))
+			       float_input(input_suggestion='Введите Y первой точки: '),
+			       float_input(input_suggestion='Введите X второй точки: '),
+			       float_input(input_suggestion='Введите Y второй точки: ')))
 
 
 	def z4():
