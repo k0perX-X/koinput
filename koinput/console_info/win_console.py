@@ -20,7 +20,7 @@ class CONSOLE_SCREEN_BUFFER_INFO(ctypes.Structure):
                 ("srWindow", SMALL_RECT), ("dwMaximumWindowSize", COORD)]
 
 
-class WinConsoleClass:
+class WinConsole:
     STD_INPUT_HANDLE = -10
     STD_OUTPUT_HANDLE = -11
     STD_ERROR_HANDLE = -12
