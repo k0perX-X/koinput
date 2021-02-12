@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "koinput"
-version = "0.2.0a4"
+version = "0.2.0"
 description = "Maximum simplification of Input / Output for text programs."
 authors = ["Николай Перминов <kolya-perminov@ya.ru>"]
 

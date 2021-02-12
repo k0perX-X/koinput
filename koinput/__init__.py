@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__version__ = '0.2.0a4'
+__version__ = '0.2.0'
 __title__ = 'koinput'
 __author__ = 'k0per'
 __copyright__ = 'Copyright 2021-present k0per'
