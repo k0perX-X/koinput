@@ -27,6 +27,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Git setup
+        env:
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+          GIT_NAME: ${{ secrets.GIT_NAME }}
         run: |
           git config --global user.email $GIT_EMAIL
           echo "=========================================================="
@@ -35,9 +38,12 @@ jobs:
           bash .github/workflows/version_detect.sh
 
       - name: poetry publish
+        env:
+          PYPI_USER: ${{ secrets.PYPI_USER }}
+          PYPI_PASS: ${{ secrets.PYPI_PASS }}
         run: |
           curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
           echo "=========================================================="
           source $HOME/.poetry/env
           echo "=========================================================="
-          poetry publish --username k0per --password fYX-SR7-SGH-Dp4 --build
+          poetry publish --username $PYPI_USER --password $PYPI_PASS --build
