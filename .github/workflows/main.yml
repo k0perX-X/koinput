@@ -29,6 +29,9 @@ jobs:
       - name: poetry publish
         run: |
           curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+          echo "=========================================================="
           source $HOME/.poetry/env
+          echo "=========================================================="
           bash .github/workflows/version_detect.sh
+          echo "=========================================================="
           poetry publish --username k0per --password fYX-SR7-SGH-Dp4 --build
