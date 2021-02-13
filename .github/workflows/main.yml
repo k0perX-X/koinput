@@ -28,6 +28,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: poetry publish
         run: |
+          git config --global user.email $GIT_EMAIL
+          echo "=========================================================="
+          git config --global user.name $GIT_NAME
+          echo "=========================================================="
           curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
           echo "=========================================================="
           source $HOME/.poetry/env

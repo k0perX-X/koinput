@@ -12,10 +12,8 @@ while read LINE
     if [ "${WORDS[0]}" == "version" ] 
     then
         VERSION="${WORDS[1]}"
-        echo "v${VERSION:1: -2}"
-        git config --global user.email $GIT_EMAIL
-        git config --global user.name $GIT_NAME
-        git tag -a "v${VERSION:1: -2}" -m "Automatic release"
+        echo "v${VERSION:1: -1}"
+        git tag -a "v${VERSION:1: -1}" -m "Automatic release"
         git push --follow-tags
         break
     fi
