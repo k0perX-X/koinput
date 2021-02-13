@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from colorama import Fore
 import sys
 from koinput.inputs import int_input
