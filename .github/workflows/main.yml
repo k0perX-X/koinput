@@ -26,16 +26,18 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: poetry publish
+      - name: Git setup
         run: |
           git config --global user.email $GIT_EMAIL
           echo "=========================================================="
           git config --global user.name $GIT_NAME
           echo "=========================================================="
+          bash .github/workflows/version_detect.sh
+
+      - name: poetry publish
+        run: |
           curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
           echo "=========================================================="
           source $HOME/.poetry/env
-          echo "=========================================================="
-          bash .github/workflows/version_detect.sh
           echo "=========================================================="
           poetry publish --username k0per --password fYX-SR7-SGH-Dp4 --build
