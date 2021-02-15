@@ -1,4 +1,4 @@
-__version__ = '0.3.0'
+__version__ = '0.3.0b1'
 __title__ = 'koinput'
 __author__ = 'k0per'
 __copyright__ = 'Copyright 2021-present k0per'
