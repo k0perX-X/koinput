@@ -1,6 +1,7 @@
 from colorama import Fore
 import sys
 from koinput.inputs import int_input
+# TODO: добавить стиль предложения ввода
 
 
 class Menu:
@@ -97,7 +98,7 @@ class Menu:
                     if items_style is not None:
                         sys.stdout.write(items_style + '\r')
                         sys.stdout.write(' ' * len(items_style) + '\r')
-                    sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{name}\n')
+                    sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{name}{console_style}\n')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
                 if x == number - 1:
@@ -114,7 +115,7 @@ class Menu:
                         sys.stdout.write(items_style + '\r')
                         sys.stdout.write(' ' * len(items_style) + '\r')
                     sys.stdout.write(
-                        ' ' * number_of_leading_spaces + f'{number}{separator}{list(self.items.keys())[i]}\n')
+                        ' ' * number_of_leading_spaces + f'{number}{separator}{list(self.items.keys())[i]}{console_style}\n')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
                 if x == number - 1:
@@ -130,7 +131,7 @@ class Menu:
                     if items_style is not None:
                         sys.stdout.write(items_style + '\r')
                         sys.stdout.write(' ' * len(items_style) + '\r')
-                    sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{i}\n')
+                    sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{i}{console_style}\n')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
                 if x == number - 1:

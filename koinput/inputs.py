@@ -1,5 +1,6 @@
 import sys
 from colorama import Fore
+# TODO: добавить стиль предложения ввода
 
 
 def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), console_style=Fore.RESET,
