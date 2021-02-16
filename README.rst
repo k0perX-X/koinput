@@ -286,23 +286,25 @@ First, we import the ProgressBar class.
 
 The class has properties:
 
-``max_value = 100``
+``ProgressBar.max_value = 100``
     The maximum value from which the percentage is calculated or indicated in the counter mode.
 
-``counter = False``
+``ProgressBar.counter = False``
     Enables counter mode. It displays not percentages, but value from max_value.
 
-``string = "[########################################] @@@%"``
+``ProgressBar.string = "[########################################] @@@%"``
     Indicates the view of the Progress Bar.
 
-``progressbar_symbol = "#"``
+``ProgressBar.progressbar_symbol = "#"``
     A symbol indicating the placement of a progress bar.
 
-``percent_symbol = "@"``
+``ProgressBar.percent_symbol = "@"``
     The symbol indicating the placement of percent (as well as the number of decimal places) or in counter mode only indicates its location.
 
-``counter_separator = '/'``
+``ProgressBar.counter_separator = '/'``
     A character or string to be displayed between value and max_value in counter mode.
+
+To display the progress bar, use the show function.
 
 .. code-block:: python
 
