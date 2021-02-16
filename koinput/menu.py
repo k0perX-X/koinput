@@ -1,7 +1,6 @@
 from colorama import Fore
 import sys
 from koinput.inputs import int_input
-# TODO: добавить стиль предложения ввода
 
 
 class Menu:
@@ -36,7 +35,7 @@ class Menu:
     def show_menu(self, title=None, title_style=None, number_of_leading_spaces_title=2, console_style=Fore.RESET,
                   order_of_items=None, number_of_leading_spaces=4, separator=' - ', items_style=None,
                   input_suggestion='Select a menu item: ', enable_menu_item_exit=True, menu_item_exit='Exit',
-                  exit_offer='Press Enter to exit...'):
+                  exit_offer='Press Enter to exit...', input_suggestion_style=None):
 
         # Type check
         if type(title) != str and title is not None:
@@ -100,7 +99,8 @@ class Menu:
                         sys.stdout.write(' ' * len(items_style) + '\r')
                     sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{name}{console_style}\n')
                     number += 1
-                x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
+                x = int_input(input_suggestion=input_suggestion, greater=0, less=number,
+                              input_suggestion_style=input_suggestion_style)
                 if x == number - 1:
                     enable_menu_item_exit = False
                 item = self.items[list(self.items.keys())[x - 1]]
@@ -117,7 +117,8 @@ class Menu:
                     sys.stdout.write(
                         ' ' * number_of_leading_spaces + f'{number}{separator}{list(self.items.keys())[i]}{console_style}\n')
                     number += 1
-                x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
+                x = int_input(input_suggestion=input_suggestion, greater=0, less=number,
+                              input_suggestion_style=input_suggestion_style)
                 if x == number - 1:
                     enable_menu_item_exit = False
                 item = self.items[list(self.items.keys())[order_of_items[x - 1]]]
@@ -133,7 +134,8 @@ class Menu:
                         sys.stdout.write(' ' * len(items_style) + '\r')
                     sys.stdout.write(' ' * number_of_leading_spaces + f'{number}{separator}{i}{console_style}\n')
                     number += 1
-                x = int_input(input_suggestion=input_suggestion, greater=0, less=number)
+                x = int_input(input_suggestion=input_suggestion, greater=0, less=number,
+                              input_suggestion_style=input_suggestion_style)
                 if x == number - 1:
                     enable_menu_item_exit = False
                 item = self.items[order_of_items[x - 1]]

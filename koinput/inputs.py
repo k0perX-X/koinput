@@ -1,6 +1,5 @@
 import sys
 from colorama import Fore
-# TODO: добавить стиль предложения ввода
 
 
 def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), console_style=Fore.RESET,
@@ -8,7 +7,7 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
               input_is_greater_than_less_error="The number is greater than acceptable.\n",
               input_is_less_than_greater_error="The number is less than acceptable.\n",
               input_is_less_error_style=None, input_is_greater_error_style=None,
-              strictly_greater=True, strictly_less=True) -> int:
+              strictly_greater=True, strictly_less=True, input_suggestion_style=None) -> int:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')
@@ -27,9 +26,11 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
     if type(input_is_less_than_greater_error) != str:
         raise TypeError('input_is_less_than_greater_error must be str')
     if type(input_is_less_error_style) != str and input_is_less_error_style is not None:
-        raise TypeError('input_is_less_error_colour must be str')
+        raise TypeError('input_is_greater_error_style must be str')
     if type(input_is_greater_error_style) != str and input_is_greater_error_style is not None:
-        raise TypeError('input_is_greater_error_colour must be str')
+        raise TypeError('input_is_greater_error_style must be str')
+    if type(input_suggestion_style) != str and input_suggestion_style is not None:
+        raise TypeError('input_suggestion_style must be str')
     if type(strictly_greater) != bool:
         raise TypeError('strictly_greater must be bool')
     if type(strictly_less) != bool:
@@ -44,7 +45,12 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
     # input
     while True:
         try:
-            sys.stdout.write(input_suggestion)
+            if input_suggestion_style is not None:
+                sys.stdout.write(input_suggestion_style + '\r')
+                sys.stdout.write(' ' * len(input_suggestion_style) + '\r')
+                sys.stdout.write(input_suggestion + console_style)
+            else:
+                sys.stdout.write(input_suggestion)
             introduced = int(input().split()[0])
             if introduced <= greater and strictly_greater:
                 sys.stdout.write(input_is_greater_error_style + '\r')
@@ -75,7 +81,7 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
                 input_is_greater_than_less_error="The number is greater than acceptable.\n",
                 input_is_less_than_greater_error="The number is less than acceptable.\n",
                 input_is_less_error_style=None, input_is_greater_error_style=None,
-                strictly_greater=True, strictly_less=True) -> float:
+                strictly_greater=True, strictly_less=True, input_suggestion_style=None) -> float:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')
@@ -94,9 +100,11 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
     if type(input_is_less_than_greater_error) != str:
         raise TypeError('input_is_less_than_greater_error must be str')
     if type(input_is_less_error_style) != str and input_is_less_error_style is not None:
-        raise TypeError('input_is_less_error_colour must be str')
+        raise TypeError('input_is_greater_error_style must be str')
     if type(input_is_greater_error_style) != str and input_is_greater_error_style is not None:
-        raise TypeError('input_is_greater_error_colour must be str')
+        raise TypeError('input_is_greater_error_style must be str')
+    if type(input_suggestion_style) != str and input_suggestion_style is not None:
+        raise TypeError('input_suggestion_style must be str')
     if type(strictly_greater) != bool:
         raise TypeError('strictly_greater must be bool')
     if type(strictly_less) != bool:
@@ -111,7 +119,12 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
     # input
     while True:
         try:
-            sys.stdout.write(input_suggestion)
+            if input_suggestion_style is not None:
+                sys.stdout.write(input_suggestion_style + '\r')
+                sys.stdout.write(' ' * len(input_suggestion_style) + '\r')
+                sys.stdout.write(input_suggestion + console_style)
+            else:
+                sys.stdout.write(input_suggestion)
             introduced = float(input().split()[0])
             if introduced <= greater and strictly_greater:
                 sys.stdout.write(input_is_greater_error_style + '\r')

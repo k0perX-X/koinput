@@ -3,42 +3,68 @@ import ctypes
 import math
 
 
-# def move(x, y):
-#     print("\033[%d;%dH" % (y, x))
+# TODO: сделать отдельный стиль для текста и прогресс бара
+# TODO: сделать стили сегментов прогресс бара
+# TODO: если текст стиль или прогресс бар стиль не ноне консоль стиль не ноне всегда
 
 
 class ProgressBar:
-    max_value = 100.0
+    max_value = 100
     counter = False
     string = "[########################################] @@@%"
     progressbar_symbol = "#"
     percent_symbol = "@"
     counter_separator = '/'
 
-    # processed_string = None
-    # cleared_string = None
-    # symbols_ids = None
-
     @staticmethod
     def show(value, text=None):
 
-        # Проверка типов
+        # Проверка существования processed_string
         try:
             str(ProgressBar.processed_string)
         except:
             ProgressBar.processed_string = None
+
+        # Проверка значений вводимых данных
+        if type(ProgressBar.counter) != bool:
+            raise ValueError('ProgressBar.counter must be bool')
+        if type(ProgressBar.counter_separator) != str:
+            raise ValueError('ProgressBar.counter_separator must be str')
+
+        if ProgressBar.counter:  # если counter true то только int для value и max_value
+            if type(value) != int and type(value) != float:
+                raise ValueError('If ProgressBar.counter = True, then value must be int.')
+            if type(ProgressBar.max_value) != int and type(ProgressBar.max_value) != float:
+                raise ValueError('If ProgressBar.counter = True, then ProgressBar.max_value must be int.')
+        else:
+            if type(value) != int and type(value) != float:
+                raise ValueError('value must be int or float')
+            if type(ProgressBar.max_value) != int and type(ProgressBar.max_value) != float:
+                raise ValueError('ProgressBar.max_value must be int or float')
+
+        if type(ProgressBar.string) != str:
+            raise ValueError('ProgressBar.string must be str')
+        if type(ProgressBar.progressbar_symbol) != str:
+            raise ValueError('ProgressBar.progressbar_symbol must be one element str')
+        if type(ProgressBar.percent_symbol) != str:
+            raise ValueError('ProgressBar.percent_symbol must be one element str')
+        if len(ProgressBar.progressbar_symbol) != 1:
+            raise ValueError('ProgressBar.progressbar_symbol must be one element str')
+        if len(ProgressBar.percent_symbol) != 1:
+            raise ValueError('ProgressBar.percent_symbol must be one element str')
+
         if value > ProgressBar.max_value:
-            # TODO: ошибка выход за размер прогресс бара
-            pass
-        # TODO: если текст стиль или прогресс бар стиль не ноне консоль стиль не ноне всегда
+            raise ValueError('value must be less than ProgressBar.max_value')
 
         # обработка изменения string
         if ProgressBar.string != ProgressBar.processed_string:
 
             # поиск прогресс бара
+            symbol_was_found = False
             i = 0
             while i < len(ProgressBar.string):
                 if ProgressBar.string[i] == ProgressBar.progressbar_symbol:
+                    symbol_was_found = True
                     ProgressBar.progressbar_start = i
                     try:
                         while ProgressBar.string[i] == ProgressBar.progressbar_symbol:
@@ -48,12 +74,15 @@ class ProgressBar:
                     ProgressBar.progressbar_length = i - ProgressBar.progressbar_start
                     break
                 i += 1
-            # TODO: ошибка нет символа
+            if not symbol_was_found:
+                raise ValueError('ProgressBar.progressbar_symbol was not found in ProgressBar.string')
 
             # поиск процентов
+            symbol_was_found = False
             i = 0
             while i < len(ProgressBar.string):
                 if ProgressBar.string[i] == ProgressBar.percent_symbol:
+                    symbol_was_found = True
                     ProgressBar.percent_start = i
                     try:
                         while ProgressBar.string[i] == ProgressBar.percent_symbol:
@@ -65,7 +94,8 @@ class ProgressBar:
                         ProgressBar.percent_length = 2
                     break
                 i += 1
-            # TODO: ошибка нет символа
+            if not symbol_was_found:
+                raise ValueError('ProgressBar.percent_symbol was not found in ProgressBar.string')
 
             ProgressBar.processed_string = ProgressBar.string
             # Очистка string
@@ -126,7 +156,7 @@ class ProgressBar:
         # вывод
         text_string = ''
         if text is not None:
-            text_string = text + ' ' * (len(ProgressBar.string) - len(text) + 2) + '\n'
+            text_string = text + ' ' * (len(string) - len(text) + 2) + '\n'
 
         sys.stdout.write(text_string + string + '\r')
         if value == ProgressBar.max_value:
