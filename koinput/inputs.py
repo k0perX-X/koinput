@@ -70,7 +70,7 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
                 sys.stdout.write(input_is_greater_than_less_error + console_style)
             else:
                 return introduced
-        except:
+        except Exception:
             sys.stdout.write(error_message_style + '\r')
             sys.stdout.write(' ' * len(error_message_style) + '\r')
             sys.stdout.write(error_message + console_style)
@@ -144,7 +144,7 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
                 sys.stdout.write(input_is_greater_than_less_error + console_style)
             else:
                 return introduced
-        except:
+        except Exception:
             sys.stdout.write(error_message_style + '\r')
             sys.stdout.write(' ' * len(error_message_style) + '\r')
             sys.stdout.write(error_message + console_style)

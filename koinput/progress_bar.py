@@ -22,7 +22,7 @@ class ProgressBar:
         # Проверка существования processed_string
         try:
             str(ProgressBar.processed_string)
-        except:
+        except Exception:
             ProgressBar.processed_string = None
 
         # Проверка значений вводимых данных
@@ -66,7 +66,7 @@ class ProgressBar:
                 if ProgressBar.string[i] == ProgressBar.progressbar_symbol:
                     symbol_was_found = True
                     ProgressBar.progressbar_start = i
-                    try:
+                    try:  # TODO: избавиться от этой херни
                         while ProgressBar.string[i] == ProgressBar.progressbar_symbol:
                             i += 1
                     except IndexError:
