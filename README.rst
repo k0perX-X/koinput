@@ -21,6 +21,9 @@ Maximal simplification of Input / Output for text programs.
 What's new?
 ===========
 
+0.3.1
+    * Added multiple input for int_input and float_input.
+
 0.3.0
     * Added a new ProgressBar function. How to use see below.
     * Added input_suggestion_style for Menu and Inputs.
@@ -88,6 +91,9 @@ Explanation of input parameters
 
 ``input_suggestion_style=None``
     Input suggestion style.
+
+``multiple_numbers_in_line=False``
+    If True the function will return a list of numbers entered in one line.
 
 Usage example
 +++++++++++++

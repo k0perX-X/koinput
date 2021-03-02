@@ -7,7 +7,8 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
               input_is_greater_than_less_error="The number is greater than acceptable.\n",
               input_is_less_than_greater_error="The number is less than acceptable.\n",
               input_is_less_error_style=None, input_is_greater_error_style=None,
-              strictly_greater=True, strictly_less=True, input_suggestion_style=None) -> int:
+              strictly_greater=True, strictly_less=True, input_suggestion_style=None,
+              multiple_numbers_in_line=False) -> int or list:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')
@@ -35,6 +36,8 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
         raise TypeError('strictly_greater must be bool')
     if type(strictly_less) != bool:
         raise TypeError('strictly_less must be bool')
+    if type(multiple_numbers_in_line) != bool:
+        raise TypeError('multiple_numbers_in_line must be bool')
 
     # error colour
     if input_is_less_error_style is None:
@@ -51,25 +54,50 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
                 sys.stdout.write(input_suggestion + console_style)
             else:
                 sys.stdout.write(input_suggestion)
-            introduced = int(input().split()[0])
-            if introduced <= greater and strictly_greater:
-                sys.stdout.write(input_is_greater_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
-                sys.stdout.write(input_is_less_than_greater_error + console_style)
-            elif introduced < greater and not strictly_greater:
-                sys.stdout.write(input_is_greater_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
-                sys.stdout.write(input_is_less_than_greater_error + console_style)
-            elif introduced >= less and strictly_less:
-                sys.stdout.write(input_is_less_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
-                sys.stdout.write(input_is_greater_than_less_error + console_style)
-            elif introduced > less and not strictly_less:
-                sys.stdout.write(input_is_less_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
-                sys.stdout.write(input_is_greater_than_less_error + console_style)
+            if not multiple_numbers_in_line:
+                introduced = int(input().split()[0])
+                if introduced <= greater and strictly_greater:
+                    sys.stdout.write(input_is_greater_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                    sys.stdout.write(input_is_less_than_greater_error + console_style)
+                elif introduced < greater and not strictly_greater:
+                    sys.stdout.write(input_is_greater_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                    sys.stdout.write(input_is_less_than_greater_error + console_style)
+                elif introduced >= less and strictly_less:
+                    sys.stdout.write(input_is_less_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                    sys.stdout.write(input_is_greater_than_less_error + console_style)
+                elif introduced > less and not strictly_less:
+                    sys.stdout.write(input_is_less_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                    sys.stdout.write(input_is_greater_than_less_error + console_style)
+                else:
+                    return introduced
             else:
-                return introduced
+                introduced_list = list(map(int, input().split()))
+                for introduced in introduced_list:
+                    if introduced <= greater and strictly_greater:
+                        sys.stdout.write(input_is_greater_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                        sys.stdout.write(input_is_less_than_greater_error + console_style)
+                        break
+                    elif introduced < greater and not strictly_greater:
+                        sys.stdout.write(input_is_greater_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                        sys.stdout.write(input_is_less_than_greater_error + console_style)
+                        break
+                    elif introduced >= less and strictly_less:
+                        sys.stdout.write(input_is_less_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                        sys.stdout.write(input_is_greater_than_less_error + console_style)
+                        break
+                    elif introduced > less and not strictly_less:
+                        sys.stdout.write(input_is_less_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                        sys.stdout.write(input_is_greater_than_less_error + console_style)
+                        break
+                return introduced_list
         except Exception:
             sys.stdout.write(error_message_style + '\r')
             sys.stdout.write(' ' * len(error_message_style) + '\r')
@@ -81,7 +109,8 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
                 input_is_greater_than_less_error="The number is greater than acceptable.\n",
                 input_is_less_than_greater_error="The number is less than acceptable.\n",
                 input_is_less_error_style=None, input_is_greater_error_style=None,
-                strictly_greater=True, strictly_less=True, input_suggestion_style=None) -> float:
+                strictly_greater=True, strictly_less=True, input_suggestion_style=None,
+                multiple_numbers_in_line=False) -> float or list:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')
@@ -109,6 +138,8 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
         raise TypeError('strictly_greater must be bool')
     if type(strictly_less) != bool:
         raise TypeError('strictly_less must be bool')
+    if type(multiple_numbers_in_line) != bool:
+        raise TypeError('multiple_numbers_in_line must be bool')
 
     # error colour
     if input_is_less_error_style is None:
@@ -125,25 +156,50 @@ def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), c
                 sys.stdout.write(input_suggestion + console_style)
             else:
                 sys.stdout.write(input_suggestion)
-            introduced = float(input().split()[0])
-            if introduced <= greater and strictly_greater:
-                sys.stdout.write(input_is_greater_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
-                sys.stdout.write(input_is_less_than_greater_error + console_style)
-            elif introduced < greater and not strictly_greater:
-                sys.stdout.write(input_is_greater_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
-                sys.stdout.write(input_is_less_than_greater_error + console_style)
-            elif introduced >= less and strictly_less:
-                sys.stdout.write(input_is_less_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
-                sys.stdout.write(input_is_greater_than_less_error + console_style)
-            elif introduced > less and not strictly_less:
-                sys.stdout.write(input_is_less_error_style + '\r')
-                sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
-                sys.stdout.write(input_is_greater_than_less_error + console_style)
+            if not multiple_numbers_in_line:
+                introduced = float(input().split()[0])
+                if introduced <= greater and strictly_greater:
+                    sys.stdout.write(input_is_greater_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                    sys.stdout.write(input_is_less_than_greater_error + console_style)
+                elif introduced < greater and not strictly_greater:
+                    sys.stdout.write(input_is_greater_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                    sys.stdout.write(input_is_less_than_greater_error + console_style)
+                elif introduced >= less and strictly_less:
+                    sys.stdout.write(input_is_less_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                    sys.stdout.write(input_is_greater_than_less_error + console_style)
+                elif introduced > less and not strictly_less:
+                    sys.stdout.write(input_is_less_error_style + '\r')
+                    sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                    sys.stdout.write(input_is_greater_than_less_error + console_style)
+                else:
+                    return introduced
             else:
-                return introduced
+                introduced_list = list(map(float, input().split()))
+                for introduced in introduced_list:
+                    if introduced <= greater and strictly_greater:
+                        sys.stdout.write(input_is_greater_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                        sys.stdout.write(input_is_less_than_greater_error + console_style)
+                        break
+                    elif introduced < greater and not strictly_greater:
+                        sys.stdout.write(input_is_greater_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_greater_error_style) + '\r')
+                        sys.stdout.write(input_is_less_than_greater_error + console_style)
+                        break
+                    elif introduced >= less and strictly_less:
+                        sys.stdout.write(input_is_less_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                        sys.stdout.write(input_is_greater_than_less_error + console_style)
+                        break
+                    elif introduced > less and not strictly_less:
+                        sys.stdout.write(input_is_less_error_style + '\r')
+                        sys.stdout.write(' ' * len(input_is_less_error_style) + '\r')
+                        sys.stdout.write(input_is_greater_than_less_error + console_style)
+                        break
+                return introduced_list
         except Exception:
             sys.stdout.write(error_message_style + '\r')
             sys.stdout.write(' ' * len(error_message_style) + '\r')

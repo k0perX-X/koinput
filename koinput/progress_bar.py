@@ -62,6 +62,7 @@ class ProgressBar:
             # поиск прогресс бара
             symbol_was_found = False
             i = 0
+            # TODO: использовать str.find
             while i < len(ProgressBar.string):
                 if ProgressBar.string[i] == ProgressBar.progressbar_symbol:
                     symbol_was_found = True
