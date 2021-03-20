@@ -6,19 +6,20 @@ from koinput.inputs import int_input
 class Menu:
 
     def __init__(self):
-        self.items = {}
+        self.__items = {}
 
-    def add_to_menu(self, name, func, *args):
-        self.items[name] = (func, args)
+    def add_to_menu(self, name: str, func, *args):
+        self.__items[name] = (func, args)
 
-    def add_to_menu_dec(self, name, *args):
+    def add_to_menu_dec(self, name: str, *args):
         def decorator(func):
-            self.items[name] = (func, args)
+            self.__items[name] = (func, args)
             return func
 
         return decorator
 
-    def menu_exit(self, exit_offer):
+    @staticmethod
+    def menu_exit(exit_offer: str):
         def f():
             print(exit_offer, end='')
             input()
@@ -32,16 +33,21 @@ class Menu:
 
         return decorator
 
-    def show_menu(self, title=None, title_style=None, number_of_leading_spaces_title=2, console_style=Fore.RESET,
-                  order_of_items=None, number_of_leading_spaces=4, separator=' - ', items_style=None,
-                  input_suggestion='Select a menu item: ', enable_menu_item_exit=True, menu_item_exit='Exit',
-                  exit_offer='Press Enter to exit...', input_suggestion_style=None):
+    def show_menu(self, title: str = None, title_style: str = None, number_of_leading_spaces_title: int = 2,
+                  console_style: str = Fore.RESET, order_of_items: tuple = None, number_of_leading_spaces: int = 4,
+                  separator: str = ' - ', items_style: str = None, input_suggestion: str = 'Select a menu item: ',
+                  enable_menu_item_exit: bool = True, menu_item_exit: str = 'Exit',
+                  exit_offer: str = 'Press Enter to exit...', input_suggestion_style: str = None):
 
         # Type check
         if type(title) != str and title is not None:
             raise TypeError('title must be str')
         if type(title_style) != str and title_style is not None:
             raise TypeError('title_colour must be str')
+        if type(items_style) != str and items_style is not None:
+            raise TypeError('items_style must be str')
+        if type(input_suggestion_style) != str and input_suggestion_style is not None:
+            raise TypeError('input_suggestion_style must be str')
         if type(number_of_leading_spaces) != int:
             raise TypeError('number_of_leading_spaces must be int')
         if type(number_of_leading_spaces_title) != int:
@@ -70,11 +76,11 @@ class Menu:
                     for itemstr in order_of_items:
                         if type(itemstr) != str:
                             raise TypeError('order_of_items must be a tuple of int or str')
-                        if itemstr not in self.items:
+                        if itemstr not in self.__items:
                             raise IndexError(
                                 'order_of_items consisting of str must contain only the names of menu items')
                     break
-                if item < 0 or item >= len(self.items):
+                if item < 0 or item >= len(self.__items):
                     raise IndexError(
                         'order_of_items consisting of int must contain only '
                         'ordinal numbers of menu items starting from 0')
@@ -93,7 +99,7 @@ class Menu:
             # Menu
             number = 1
             if order_of_items is None:
-                for name in list(self.items.keys()):
+                for name in list(self.__items.keys()):
                     if items_style is not None:
                         sys.stdout.write(items_style + '\r')
                         sys.stdout.write(' ' * len(items_style) + '\r')
@@ -103,25 +109,25 @@ class Menu:
                               input_suggestion_style=input_suggestion_style)
                 if x == number - 1:
                     enable_menu_item_exit = False
-                item = self.items[list(self.items.keys())[x - 1]]
+                item = self.__items[list(self.__items.keys())[x - 1]]
                 if item[0] is not None:
                     item[0](*item[1])
 
             elif order_of_items_is_int_tuple:
                 if enable_menu_item_exit:
-                    order_of_items = (*order_of_items, len(self.items.keys()) - 1)
+                    order_of_items = (*order_of_items, len(self.__items.keys()) - 1)
                 for i in order_of_items:
                     if items_style is not None:
                         sys.stdout.write(items_style + '\r')
                         sys.stdout.write(' ' * len(items_style) + '\r')
                     sys.stdout.write(
-                        ' ' * number_of_leading_spaces + f'{number}{separator}{list(self.items.keys())[i]}{console_style}\n')
+                        ' ' * number_of_leading_spaces + f'{number}{separator}{list(self.__items.keys())[i]}{console_style}\n')
                     number += 1
                 x = int_input(input_suggestion=input_suggestion, greater=0, less=number,
                               input_suggestion_style=input_suggestion_style)
                 if x == number - 1:
                     enable_menu_item_exit = False
-                item = self.items[list(self.items.keys())[order_of_items[x - 1]]]
+                item = self.__items[list(self.__items.keys())[order_of_items[x - 1]]]
                 if item[0] is not None:
                     item[0](*item[1])
 
@@ -138,7 +144,7 @@ class Menu:
                               input_suggestion_style=input_suggestion_style)
                 if x == number - 1:
                     enable_menu_item_exit = False
-                item = self.items[order_of_items[x - 1]]
+                item = self.__items[order_of_items[x - 1]]
                 if item[0] is not None:
                     item[0](*item[1])
 

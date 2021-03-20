@@ -2,13 +2,14 @@ import sys
 from colorama import Fore
 
 
-def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), console_style=Fore.RESET,
-              error_message='Invalid number format.\n', error_message_style=Fore.RED,
-              input_is_greater_than_less_error="The number is greater than acceptable.\n",
-              input_is_less_than_greater_error="The number is less than acceptable.\n",
-              input_is_less_error_style=None, input_is_greater_error_style=None,
-              strictly_greater=True, strictly_less=True, input_suggestion_style=None,
-              multiple_numbers_in_line=False) -> int or list:
+def int_input(input_suggestion: str = '', greater: float or int = float('-inf'), less: float or int = float('inf'),
+              console_style: str = Fore.RESET, error_message: str = 'Invalid number format.\n',
+              error_message_style: str = Fore.RED, multiple_numbers_in_line: bool = False,
+              input_is_greater_than_less_error: str = "The number is greater than acceptable.\n",
+              input_is_less_than_greater_error: str = "The number is less than acceptable.\n",
+              input_is_less_error_style: str = None, input_is_greater_error_style: str = None,
+              strictly_greater: bool = True, strictly_less: bool = True,
+              input_suggestion_style: str = None) -> int or list:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')
@@ -104,13 +105,14 @@ def int_input(input_suggestion='', greater=float('-inf'), less=float('inf'), con
             sys.stdout.write(error_message + console_style)
 
 
-def float_input(input_suggestion='', greater=float('-inf'), less=float('inf'), console_style=Fore.RESET,
-                error_message='Invalid number format.\n', error_message_style=Fore.RED,
-                input_is_greater_than_less_error="The number is greater than acceptable.\n",
-                input_is_less_than_greater_error="The number is less than acceptable.\n",
-                input_is_less_error_style=None, input_is_greater_error_style=None,
-                strictly_greater=True, strictly_less=True, input_suggestion_style=None,
-                multiple_numbers_in_line=False) -> float or list:
+def float_input(input_suggestion: str = '', greater: float or int = float('-inf'), less: float or int = float('inf'),
+                console_style: str = Fore.RESET, error_message: str = 'Invalid number format.\n',
+                error_message_style: str = Fore.RED, multiple_numbers_in_line: bool = False,
+                input_is_greater_than_less_error: str = "The number is greater than acceptable.\n",
+                input_is_less_than_greater_error: str = "The number is less than acceptable.\n",
+                input_is_less_error_style: str = None, input_is_greater_error_style: str = None,
+                strictly_greater: bool = True, strictly_less: bool = True,
+                input_suggestion_style: str = None) -> float or list:
     # type check
     if type(input_suggestion) != str:
         raise TypeError('input_suggestion must be str')

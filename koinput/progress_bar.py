@@ -9,21 +9,17 @@ import math
 
 
 class ProgressBar:
-    max_value = 100
-    counter = False
-    string = "[########################################] @@@%"
-    progressbar_symbol = "#"
-    percent_symbol = "@"
-    counter_separator = '/'
+    max_value: int or float = 100
+    counter: bool = False
+    string: str = "[########################################] @@@%"
+    progressbar_symbol: str = "#"
+    percent_symbol: str = "@"
+    counter_separator: str = '/'
+
+    __processed_string = None
 
     @staticmethod
-    def show(value, text=None):
-
-        # Проверка существования processed_string
-        try:
-            str(ProgressBar.processed_string)
-        except Exception:
-            ProgressBar.processed_string = None
+    def show(value: int or float, text: str = None):
 
         # Проверка значений вводимых данных
         if type(ProgressBar.counter) != bool:
@@ -57,7 +53,7 @@ class ProgressBar:
             raise ValueError('value must be less than ProgressBar.max_value')
 
         # обработка изменения string
-        if ProgressBar.string != ProgressBar.processed_string:
+        if ProgressBar.string != ProgressBar.__processed_string:
 
             # поиск прогресс бара
             symbol_was_found = False
@@ -98,7 +94,7 @@ class ProgressBar:
             if not symbol_was_found:
                 raise ValueError('ProgressBar.percent_symbol was not found in ProgressBar.string')
 
-            ProgressBar.processed_string = ProgressBar.string
+            ProgressBar.__processed_string = ProgressBar.string
             # Очистка string
             ProgressBar.cleared_string = ProgressBar.string.replace(ProgressBar.progressbar_symbol, '')
             ProgressBar.cleared_string = ProgressBar.cleared_string.replace(ProgressBar.percent_symbol, '')

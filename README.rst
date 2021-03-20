@@ -21,6 +21,10 @@ Maximal simplification of Input / Output for text programs.
 What's new?
 ===========
 
+0.3.2
+    * Minor improvements and bug fixes.
+    * Fixed inaccuracies in README file.
+
 0.3.1
     * Added multiple input for int_input and float_input.
 
@@ -55,12 +59,14 @@ Explanation of input parameters
 
 .. code-block:: python
 
-    def int_input(input_suggestion="", greater=float('-inf'), less=float('inf'), console_style=colorama.Fore.RESET,
-                  error_message='Invalid number format.\n', error_message_style=colorama.Fore.RED,
-                  input_is_greater_than_less_error="The number is greater than acceptable.\n",
-                  input_is_less_than_greater_error="The number is less than acceptable.\n",
-                  input_is_less_error_style=None, input_is_greater_error_style=None,
-                  strictly_greater=True, strictly_less=True, input_suggestion_style=None):
+    def int_input(input_suggestion: str = '', greater: float or int = float('-inf'), less: float or int = float('inf'),
+                  console_style: str = Fore.RESET, error_message: str = 'Invalid number format.\n',
+                  error_message_style: str = Fore.RED, multiple_numbers_in_line: bool = False,
+                  input_is_greater_than_less_error: str = "The number is greater than acceptable.\n",
+                  input_is_less_than_greater_error: str = "The number is less than acceptable.\n",
+                  input_is_less_error_style: str = None, input_is_greater_error_style: str = None,
+                  strictly_greater: bool = True, strictly_less: bool = True,
+                  input_suggestion_style: str = None) -> int or list:
 
 ``input_suggestion=""``
     Input suggestion that will be displayed when the function is run.
@@ -146,10 +152,11 @@ Use the show_menu command to display the menu.
 
 .. code-block:: python
 
-    menu.show_menu(title=None, title_style=None, number_of_leading_spaces_title=2, console_style=Fore.RESET,
-                   order_of_items=None, number_of_leading_spaces=4, separator=' - ', items_style=None,
-                   input_suggestion='Select a menu item: ', enable_menu_item_exit=True, menu_item_exit='Exit',
-                   exit_offer='Press Enter to exit...', input_suggestion_style=None):
+    def show_menu(self, title: str = None, title_style: str = None, number_of_leading_spaces_title: int = 2,
+                  console_style: str = Fore.RESET, order_of_items: tuple = None, number_of_leading_spaces: int = 4,
+                  separator: str = ' - ', items_style: str = None, input_suggestion: str = 'Select a menu item: ',
+                  enable_menu_item_exit: bool = True, menu_item_exit: str = 'Exit',
+                  exit_offer: str = 'Press Enter to exit...', input_suggestion_style: str = None):
 
 ``title=None``
     Menu title.
@@ -202,7 +209,7 @@ Example with disabling the exit confirmation:
     def menu_exit(exit_offer):
         def f():
             pass
-    return f
+        return f
 
 Example with displaying another menu:
 
@@ -292,29 +299,29 @@ First, we import the ProgressBar class.
 
 The class has properties:
 
-``ProgressBar.max_value = 100``
+``ProgressBar.max_value: int or float = 100``
     The maximum value from which the percentage is calculated or indicated in the counter mode.
 
-``ProgressBar.counter = False``
+``ProgressBar.counter: bool = False``
     Enables counter mode. It displays not percentages, but value from max_value.
 
-``ProgressBar.string = "[########################################] @@@%"``
+``ProgressBar.string: str = "[########################################] @@@%"``
     Indicates the view of the Progress Bar.
 
-``ProgressBar.progressbar_symbol = "#"``
+``ProgressBar.progressbar_symbol: str = "#"``
     A symbol indicating the placement of a progress bar.
 
-``ProgressBar.percent_symbol = "@"``
+``ProgressBar.percent_symbol: str = "@"``
     The symbol indicating the placement of percent (as well as the number of decimal places) or in counter mode only indicates its location.
 
-``ProgressBar.counter_separator = '/'``
+``ProgressBar.counter_separator: str = '/'``
     A character or string to be displayed between value and max_value in counter mode.
 
 To display the progress bar, use the show function.
 
 .. code-block:: python
 
-    ProgressBar.show(value, text=None)
+    ProgressBar.show(value: int or float, text: str = None)
 
 ``value``
     The current value of the progress bar.
